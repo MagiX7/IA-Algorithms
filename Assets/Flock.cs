@@ -34,6 +34,12 @@ public class Flock : MonoBehaviour
         Vector3 separation = Vector3.zero;
         int num = 0;
 
+        //if(transform.position.x < myManager.limits.transform.position.x || transform.position.y < myManager.limits.transform.position.y
+        //    || transform.position.z < myManager.limits.transform.position.z)
+        //{
+        //    transform.forward = -transform.forward;
+        //}
+
         foreach (GameObject go in myManager.allFish)
         {
             if (go != this.gameObject)
@@ -54,14 +60,13 @@ public class Flock : MonoBehaviour
 
             // Leader
             float distLead = Vector3.Distance(go.transform.position, myManager.leadObject.transform.position);
+            float distDanger = Vector3.Distance(go.transform.position, myManager.dangerObject.transform.position);
             if(distLead <= myManager.leadDistance)
             {
                 separation -=  2 * (transform.position - myManager.leadObject.transform.position) / (distLead * distLead);
                 num++;
             }
-
             // Danger
-            float distDanger = Vector3.Distance(go.transform.position, myManager.dangerObject.transform.position);
             if (distDanger <= myManager.leadDistance)
             {
                 separation -= 2 * (myManager.leadObject.transform.position - transform.position) / (distDanger * distDanger);

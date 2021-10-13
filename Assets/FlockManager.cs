@@ -17,6 +17,7 @@ public class FlockManager : MonoBehaviour
     public float leadDistance;
     public float dangerDistance;
     public float rotationSpeed;
+    public GameObject limits;
 
     // Start is called before the first frame update
     void Start()
