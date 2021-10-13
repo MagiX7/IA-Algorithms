@@ -32,13 +32,9 @@ public class Flock : MonoBehaviour
         Vector3 cohesion = Vector3.zero;
         Vector3 align = Vector3.zero;
         Vector3 separation = Vector3.zero;
+        Vector3 danger = Vector3.zero;
+        Vector3 lead = Vector3.zero;
         int num = 0;
-
-        //if(transform.position.x < myManager.limits.transform.position.x || transform.position.y < myManager.limits.transform.position.y
-        //    || transform.position.z < myManager.limits.transform.position.z)
-        //{
-        //    transform.forward = -transform.forward;
-        //}
 
         foreach (GameObject go in myManager.allFish)
         {
@@ -60,16 +56,17 @@ public class Flock : MonoBehaviour
 
             // Leader
             float distLead = Vector3.Distance(go.transform.position, myManager.leadObject.transform.position);
-            float distDanger = Vector3.Distance(go.transform.position, myManager.dangerObject.transform.position);
             if(distLead <= myManager.leadDistance)
             {
-                separation -=  2 * (transform.position - myManager.leadObject.transform.position) / (distLead * distLead);
+                danger -=  2 * (transform.position - myManager.leadObject.transform.position) / (distLead * distLead);
                 num++;
             }
+
             // Danger
+            float distDanger = Vector3.Distance(go.transform.position, myManager.dangerObject.transform.position);
             if (distDanger <= myManager.leadDistance)
             {
-                separation -= 2 * (myManager.leadObject.transform.position - transform.position) / (distDanger * distDanger);
+                lead -= 2 * (myManager.leadObject.transform.position - transform.position) / (distDanger * distDanger);
                 num++;
             }
 
@@ -82,6 +79,6 @@ public class Flock : MonoBehaviour
             }
         }
 
-        return (cohesion + align + separation).normalized * speed;
+        return (cohesion + align + separation + danger + lead).normalized * speed;
     }
 }
