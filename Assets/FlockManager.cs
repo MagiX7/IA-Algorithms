@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FlockManager : MonoBehaviour
 {
-    public GameObject fishPrefab;
-    public int numFish;
-    public GameObject[] allFish;
+    public GameObject entityPrefab;
+    public int numEntity;
+    public GameObject[] allEntity;
     public GameObject leadObject;
     public GameObject dangerObject;
 
@@ -17,19 +17,18 @@ public class FlockManager : MonoBehaviour
     public float leadDistance;
     public float dangerDistance;
     public float rotationSpeed;
-    public GameObject limits;
 
     // Start is called before the first frame update
     void Start()
     {
-        allFish = new GameObject[numFish];
+        allEntity = new GameObject[numEntity];
 
-        for (int i = 0; i < numFish; ++i)
+        for (int i = 0; i < numEntity; ++i)
         {
             Vector3 pos = this.transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), Random.Range(-1, 1));
             Vector3 randomize = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), Random.Range(-1, 1)).normalized;
-            allFish[i] = (GameObject)Instantiate(fishPrefab, pos, Quaternion.LookRotation(randomize));
-            allFish[i].GetComponent<Flock>().myManager = this;
+            allEntity[i] = (GameObject)Instantiate(entityPrefab, pos, Quaternion.LookRotation(randomize));
+            allEntity[i].GetComponent<Flock>().myManager = this;
         }
     }
     // Update is called once per frame

@@ -47,7 +47,7 @@ public class Flock : MonoBehaviour
         Vector3 lead = Vector3.zero;
         int num = 0;
 
-        foreach (GameObject go in myManager.allFish)
+        foreach (GameObject go in myManager.allEntity)
         {
             if (go != this.gameObject)
             {
