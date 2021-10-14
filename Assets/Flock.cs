@@ -10,6 +10,8 @@ public class Flock : MonoBehaviour
     public float dangerDistance;
     public GameObject dangerObject;
 
+    private float freq = 0.76f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +21,17 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        direction = Flocking();
+        if (freq < 0.75f)
+        {
+            freq += Time.deltaTime;
+        }
+        else
+        {
+            freq = 0.0f;
 
+            direction = Flocking();
+
+        }
         transform.rotation = Quaternion.Slerp(transform.rotation,
                              Quaternion.LookRotation(direction),
                              myManager.rotationSpeed * Time.deltaTime);
